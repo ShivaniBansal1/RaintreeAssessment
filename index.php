@@ -86,7 +86,6 @@
 
         function __construct($first, $last, $dob) {
             static $_id = 0;
-    
             $this->_id = ++$_id;
             $this->pn = "000000000{$_id}";
             $this->first = $first; 
@@ -103,7 +102,7 @@
         }
 
         function getFirstLast(){                        // get patient name(First Last) property
-            return $this->first . $this->last;
+            return $this->first ." ". $this->last;
         }
 
         public function addInsurance( $insuranceObject){  
@@ -150,7 +149,7 @@
         }
 
         function getPn() {                               // get patient no.
-            return $this->patient -> getPn() ;
+            return $this->patient->getPn() ;
         }
 
         function checkInsuranceValidity($dateToBeChecked){      // return insurance validity as true or false
@@ -169,7 +168,7 @@
         }
     }
 
-        // 4.4  Test Script To check validity of insurances comparing from today's date ordered by patient no.
+        // 4.4  displaying all patients and insurances with its validity from today's date ordered by patient no.
 
     echo "\nTest Script To check validity of insurances comparing from today's date ordered by patient no.\n";
 
@@ -177,6 +176,7 @@
         $today = date('Y-m-d ');
         $today=date('Y-m-d', strtotime($today));                
         $patientObj->displyingTableData($today);
+        return;
     }
     
     $sql = "SELECT *\n"
@@ -203,5 +203,102 @@
         $insurance = new Insurance($row["iname"], $row["from_date"], $row["to_date"], $patient);
         $patient->addInsurance($insurance);
     }
-    helperMethod($patient)
+    helperMethod($patient);
+
+        // 4.4 test script to check features of classes
+    function checkPatientClass(){
+        $response = "";
+        echo "Type Patient's\n";
+        $first = readline('Firstname: ');
+        $last = readline('Lastname: ');
+        $dob = readline('DOB(eg: YYYY/MM/DD) : '); 
+        $patient = new Patient($first, $last, $dob);
+        while($response != "exit"){
+            echo "Type 'id' to get id or 'pn' to get patient no. or 'name' to get Name or  'insurance' to create insurance object or 'exit' to exit without quotes \n";
+            $response = readline();
+            if ($response == "exit"){
+                return;
+            }
+            else if ($response == "id"){
+                $ans = $patient->getId();
+                echo "$ans\n";
+            }
+            else if ($response == "pn"){
+                $ans = $patient->getPn();
+                echo "$ans\n";
+            }
+            else if ($response == "name"){
+                $ans = $patient->getFirstLast();
+                echo "$ans\n";
+            }
+            else if ($response == "insurance"){
+                
+                checkInsuranceClass($patient);
+            break;
+            }
+            else{
+                echo "invalid input";
+                continue;
+            }
+        }
+        return;
+    }
+
+    function checkInsuranceClass($patient){
+        $response = "";
+        echo "Type insurance's: \n";
+        $iname = readline('Iname: ');
+        $from_date = readline('from_date(eg: YYYY/MM/DD): ');
+        $to_date = readline('to_date(eg: YYYY/MM/DD): ');
+        $insurance = new Insurance($iname, $from_date, $to_date, $patient);
+        while($response != "exit"){
+            echo "Type 'id' to get id or 'pn' to get patient no. or 'isvalid' to check validity for insurance or 'patient' to create new patient or 'insurance' to create new insurance' or 'exit' to exit without quotes  \n";
+            $response = readline();
+            if ($response == "exit"){
+                return;
+            }
+            else if ($response == "id"){
+                $ans = $insurance->getId();
+                echo "$ans\n";
+            }
+            else if ($response == "pn"){
+                $ans = $insurance->getPn();
+                echo "$ans\n";
+            }
+            else if ($response == "isvalid"){
+                $response = readline("Type date (eg : YYYY/MM/DD): ");
+                echo $insurance->checkInsuranceValidity($response), "\n";
+            }
+            else if ($response == "patient"){
+                checkPatientClass();
+                return;
+            }
+            else if ($response=="insurance"){
+
+            }
+            else{
+                echo "invalid input";
+                continue;
+            }
+        }
+    }
+
+    function testScript(){
+        echo "\nTo start the script type 'start' without quotes  or type 'exit' or enter to exit\n";
+        $response = "";
+        $response = readline();
+        if ($response == "start"){
+            echo "\nRunning test script (lets create patient object)\n";
+            while(true == true){        
+                checkPatientClass();
+                break;
+            }
+        }
+        else{
+            return;
+        }
+    }
+
+    testScript()
+    
 ?>

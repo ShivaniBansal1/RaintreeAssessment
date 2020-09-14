@@ -237,7 +237,7 @@
             break;
             }
             else{
-                echo "invalid input";
+                echo "invalid input\n";
                 continue;
             }
         }
@@ -277,14 +277,14 @@
 
             }
             else{
-                echo "invalid input";
+                echo "invalid input\n";
                 continue;
             }
         }
     }
 
     function testScript(){
-        echo "\nTo start the script type 'start' without quotes  or type 'exit' or enter to exit\n";
+        echo "\nTo start the test script type 'start' without quotes  or type 'exit' or enter to exit\n";
         $response = "";
         $response = readline();
         if ($response == "start"){

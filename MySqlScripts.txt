@@ -1,0 +1,65 @@
+create table Patient
+	(
+		_id int(10) ZEROFILL AUTO_INCREMENT PRIMARY KEY ,
+		pn varchar(11) DEFAULT null,
+		first varchar(15) DEFAULT null,
+		last varchar(25) DEFAULT null,
+		dob date DEFAULT null
+	);
+
+
+create table insurance
+	(
+        _id int(10) ZEROFILL AUTO_INCREMENT PRIMARY KEY,
+		patient_id int(10) not NULL ,
+		iname varchar(40) DEFAULT NULL,
+		from_date date DEFAULT NULL,
+		to_date date DEFAULT NULL, 
+		constraint FK_InsuranePatient foreign key (patient_id) references patient(_id)
+	);
+
+insert into Patient (PN, FIRST, LAST, DOB)
+values('1', 'Shivani', 'Bansal', '1998/01/01');
+
+insert into Patient (PN, FIRST, LAST, DOB)
+values('2', 'Shefali', 'Sharma', '1998/07/03');
+
+insert into Patient (PN, FIRST, LAST, DOB)
+values('3', 'Aryan', 'Verma', '2003/08/01');
+
+insert into Patient (PN, FIRST, LAST, DOB)
+values('4', 'Rishabh', 'Singh', '1998/01/02');
+
+insert into Patient (PN, FIRST, LAST, DOB)
+values('5', 'Yatin', 'Hans', '2007/06/09');
+
+insert into insurance (patient_ID, INAME, FROM_DATE, TO_DATE)
+values(1, 'medicare', '2000/09/09', '2002/07/08');
+
+insert into insurance (patient_ID, INAME, FROM_DATE, TO_DATE)
+values(1, 'Bluecross', '2005/09/09', '2007/07/08');
+
+insert into insurance (patient_ID, INAME, FROM_DATE, TO_DATE)
+values(2, 'medicare', '2020/09/09', '2027/07/08');
+
+insert into insurance (patient_ID, INAME, FROM_DATE, TO_DATE)
+values(2, 'Bluecross', '2014/09/09', '2020/07/08');
+
+insert into insurance (patient_ID, INAME, FROM_DATE, TO_DATE)
+values(3, 'medicare', '2005/09/09', '2007/07/08');
+
+insert into insurance (patient_ID, INAME, FROM_DATE, TO_DATE)
+values(4, 'Bluecross', '2000/09/09', '2002/07/08');
+
+insert into insurance (patient_ID, INAME, FROM_DATE, TO_DATE)
+values(3, 'Bluecross', '2030/09/09', '2033/07/08');
+
+insert into insurance (patient_ID, INAME, FROM_DATE, TO_DATE)
+values(4, 'medicare', '1999/09/09', '2002/07/08');
+
+insert into insurance (patient_ID, INAME, FROM_DATE, TO_DATE)
+values(5, 'Bluecross', '2012/09/09', '2020/07/08');
+
+insert into insurance (patient_ID, INAME, FROM_DATE, TO_DATE)
+values(5, 'medicare', '2000/09/09', '2019/07/08');
+
